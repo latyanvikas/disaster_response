@@ -26,6 +26,13 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
     """
 
     def starting_verb(self, text):
+        """
+        tokenize by sentences. It will tokenize each sentence into words and tag part of speech 
+        and return true if the first word is an appropriate verb or RT for retweet
+        INPUT : self and message
+        OUTPUT : true and false based on approprite verb 
+        
+        """
         sentence_list = nltk.sent_tokenize(text)
         for sentence in sentence_list:
             pos_tags = nltk.pos_tag(tokenize(sentence))
@@ -33,18 +40,29 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
             if first_tag in ['VB', 'VBP'] or first_word == 'RT':
                 return True
         return False
-    
+        
     # Given it is a tranformer we can return the self 
-
     def fit(self, X, y=None):
+        """
+        returns self instance  which is needed for piprline
+        """
         return self
 
     def transform(self, X):
+        """
+        applying starting_verb function to all values in X
+        """
         X_tagged = pd.Series(X).apply(self.starting_verb)
         return pd.DataFrame(X_tagged)
 
 
 def tokenize(text):
+    """
+    tokenize the text function
+    
+    input : message text
+    output : returns the clean tokenize words form clean text
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 

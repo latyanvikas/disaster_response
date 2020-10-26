@@ -63,6 +63,9 @@ def clean_data(df):
     # concatenate the original dataframe with the new `categories` dataframe created above
     df = pd.concat([df,categories],axis=1)
     
+    # related columns doesn't have valid response, lets replace 2 with 1 as majority of the rows has this value. It mightbe due to error
+    df.loc[:,'related'] = df['related'].replace(2,1)
+    
     # remove duplicates 
     df = df.drop_duplicates()
     

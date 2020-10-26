@@ -47,10 +47,7 @@ def load_data(database_filepath):
     
     # As per our analysis in notebook, we know child_alone doesn't have any information, lets drop it
     df=df.drop(['child_alone'],axis=1)
-    
-    # related columns doesn't have valid response, lets replace 2 with 1 as majority of the rows has this value. It mightbe due to error
-    df.loc[:,'related'] = df['related'].replace(2,1)
-    
+            
     
     X = df['message']
     Y = df.iloc[:,4:]
@@ -100,6 +97,13 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
     """
 
     def starting_verb(self, text):
+        """
+        tokenize by sentences. It will tokenize each sentence into words and tag part of speech 
+        and return true if the first word is an appropriate verb or RT for retweet
+        INPUT : self and message
+        OUTPUT : true and false based on approprite verb 
+        
+        """
         sentence_list = nltk.sent_tokenize(text)
         for sentence in sentence_list:
             pos_tags = nltk.pos_tag(tokenize(sentence))
@@ -107,13 +111,18 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
             if first_tag in ['VB', 'VBP'] or first_word == 'RT':
                 return True
         return False
-    
+        
     # Given it is a tranformer we can return the self 
-
     def fit(self, X, y=None):
+        """
+        returns self instance  which is needed for piprline
+        """
         return self
 
     def transform(self, X):
+        """
+        applying starting_verb function to all values in X
+        """
         X_tagged = pd.Series(X).apply(self.starting_verb)
         return pd.DataFrame(X_tagged)
 
@@ -141,7 +150,12 @@ def build_model():
         ('classifier', MultiOutputClassifier(AdaBoostClassifier()))
     ])
     
-    return pipeline
+    parameters_grid = {'classifier__estimator__learning_rate': [0.01, 0.02, 0.05],
+              'classifier__estimator__n_estimators': [10, 20, 40]}
+    
+    cv = GridSearchCV(pipeline, param_grid=parameters_grid, scoring='f1_micro', n_jobs= 1)
+    
+    return cv
         
 
 
