@@ -1,6 +1,6 @@
 # Disaster Response Pipeline Project for Udacity Nanodegree
 
-![Intro Pic](screenshots/header.png)
+![Intro Pic](screenshots/header.PNG)
 
 
 ## Table of Contents
