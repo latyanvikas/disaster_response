@@ -40,23 +40,35 @@ It contains following sections
 <a name="structure"></a>
 ### Project Structure
 
-app
-| - template
-| |- master.html # main page of web app
-| |- go.html # classification result page of web app
-|- run.py # Flask file that runs app
-data
-|- disaster_categories.csv # message categories data to process
-|- disaster_messages.csv # Message data to process
-|- ETL Pipeline Preparation.ipynb - step by step details as how ETL piepline is built
-|- process_data.py - This will build the ETL pipeline
-|- disasterresponse.db # database to save clean data to
-models
-|- train_classifier.py - We are building the NLP model pipeline to train and test the model
-|- classifier.pkl # Saving the model pickle file
-|- ML Pipeline Preparation.ipyn - step by step details about the machine learning pipeline
-screenshotes - It contains screenshot from the web app
-README.md - Information about the project
+1. app
+<ul>
+		
+		template
+	
+			master.html - main page of web app
+			go.html - classification result page of web app
+		
+		run.py -  Flask file that runs app
+</ul>
+2. data
+<ul>		
+			
+		disaster_categories.csv -  message categories data to process		
+		disaster_messages.csv - Message data to process
+		ETL Pipeline Preparation.ipynb - step by step details as how ETL piepline is built
+		process_data.py - This will build the ETL pipelinedisasterresponse.db - database to save clean data to
+</ul>
+3. models
+<ul>
+		
+		train_classifier.py - We are building the NLP model pipeline to train and test the model
+		classifier.pkl # Saving the model pickle file
+		ML Pipeline Preparation.ipynb - step by step details about the machine learning pipeline
+</ul>
+
+4. screenshotes - It contains screenshot from the web app
+
+5. README.md - Information about the project
 
 <a name="installation"></a>
 ### Installing
@@ -82,6 +94,6 @@ git clone https://github.com/latyanvikas/disaster_response_vk.git
 <a name="acknowledgement"></a>
 ## Acknowledgements
 
-* [Udacity](https://www.udacity.com/) for providing an amazing Data Science Nanodegree Program & structured code build the pipeline
+* [Udacity](https://www.udacity.com/) Thanks for providing this opportunity and a structured framework
 
 
